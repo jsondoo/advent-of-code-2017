@@ -18,15 +18,21 @@ input = """790	99	345	1080	32	143	1085	984	553	98	123	97	197	886	125	947
 parts = input.splitlines()
 checksum = 0
 
+def findDivisible(line):
+    global checksum
+    # O(n^2) to find two divible numbers in a line
+    for i in range(0,len(line)):
+        for j in range(i+1,len(line)):
+            if line[i]%line[j]==0:
+                checksum += line[i] / line[j]
+                return 
+            elif line[j]%line[i]==0:
+                checksum += line[j] / line[i]
+                return
+
 for p in parts:
     line = [int(n) for n in p.split('\t')]
     print(line)
-    mini = line[0]
-    maxi = line[0]
-    for x in line:
-        mini = min(mini,x)
-        maxi = max(maxi,x)
-    checksum += maxi - mini
+    findDivisible(line)
 
-print(checksum)
-
+print(checksum) # 265
